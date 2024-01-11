@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,15 +18,20 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        pi.Player;
+        pi = new PlayerInput();
+        pi.Player.Movement.performed += OnMovement;
+    }
+
+    private void OnMovement(InputAction.CallbackContext obj)
+    {
+        Vector2 movementVal = obj.ReadValue<Vector2>();
+        x = movementVal.x;
+        z = movementVal.y;
     }
 
     // Update is called once per frame
     void Update()
     {
-        x = Input.GetAxis("Horizontal");
-        z = Input.GetAxis("Vertical");
-
         Vector3 move = transform.right * x + transform.forward * z;
 
         controller.Move(move * speed * Time.deltaTime);
