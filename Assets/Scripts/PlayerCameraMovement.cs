@@ -23,17 +23,18 @@ public class PlayerCameraMovement : MonoBehaviour
     void Update()
     {
         //Mouse Input
-        //float mouseX = Input.GetAxis("Mouse X") * Time.deltaTime * mouseSensitivity;
-        //float mouseY = Input.GetAxis("Mouse Y") * Time.deltaTime * mouseSensitivity;
+        Vector2 looking = Mouse.current.delta.ReadValue();
 
+        float mouseX = looking.x * Time.deltaTime * mouseSensitivity;
+        float mouseY = looking.y * Time.deltaTime * mouseSensitivity;
 
-        Debug.Log(Mouse.current.delta.ReadValue());
+        yRot += mouseX;
 
         xRot -= mouseY;
         xRot = Mathf.Clamp(xRot, -90f, 90f);
 
         //Rotation of the camera
-        transform.localRotation = Quaternion.Euler(xRot, 0f, 0f);
-        orientation.Rotate(Vector3.up * mouseX);
+        transform.localRotation = Quaternion.Euler(xRot, yRot, 0f);
+        orientation.localRotation = Quaternion.Euler(0f, yRot, 0f);
     }
 }
