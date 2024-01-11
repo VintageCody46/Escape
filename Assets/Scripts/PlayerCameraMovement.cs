@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerCameraMovement : MonoBehaviour
 {
@@ -24,8 +25,9 @@ public class PlayerCameraMovement : MonoBehaviour
         //Mouse Input
         //float mouseX = Input.GetAxis("Mouse X") * Time.deltaTime * mouseSensitivity;
         //float mouseY = Input.GetAxis("Mouse Y") * Time.deltaTime * mouseSensitivity;
-        
-        Debug.Log(mouseY);
+
+
+        Debug.Log(Mouse.current.delta.ReadValue());
 
         xRot -= mouseY;
         xRot = Mathf.Clamp(xRot, -90f, 90f);
