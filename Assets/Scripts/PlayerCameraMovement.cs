@@ -7,10 +7,10 @@ public class PlayerCameraMovement : MonoBehaviour
 {
     public float mouseSensitivity  = 100f;
 
-    public Transform orientation;
+    //public Transform orientation;
 
-    float xRot;
-    float yRot;
+    private float xRot;
+    private float yRot;
     
     // Start is called before the first frame update
     void Start()
@@ -25,16 +25,11 @@ public class PlayerCameraMovement : MonoBehaviour
         //Mouse Input
         Vector2 looking = Mouse.current.delta.ReadValue();
 
-        float mouseX = looking.x * Time.deltaTime * mouseSensitivity;
-        float mouseY = looking.y * Time.deltaTime * mouseSensitivity;
+        xRot = looking.x * Time.deltaTime * mouseSensitivity;
+        yRot = looking.y * Time.deltaTime * mouseSensitivity;
 
-        yRot += mouseX;
-
-        xRot -= mouseY;
-        xRot = Mathf.Clamp(xRot, -90f, 90f);
-
-        //Rotation of the camera
-        transform.localRotation = Quaternion.Euler(xRot, yRot, 0f);
-        orientation.localRotation = Quaternion.Euler(0f, yRot, 0f);
+        transform.Rotate(Vector3.up, xRot);
+        
+        Camera.main.transform.Rotate(Vector3.left, yRot);
     }
 }
