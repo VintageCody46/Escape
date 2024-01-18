@@ -25,11 +25,12 @@ public class PlayerCameraMovement : MonoBehaviour
         //Mouse Input
         Vector2 looking = Mouse.current.delta.ReadValue();
 
-        xRot = looking.x * Time.deltaTime * mouseSensitivity;
-        yRot = looking.y * Time.deltaTime * mouseSensitivity;
+        xRot += looking.x * Time.deltaTime * mouseSensitivity;
+        yRot += looking.y * Time.deltaTime * mouseSensitivity;
 
-        transform.Rotate(Vector3.up, xRot);
-        
-        Camera.main.transform.Rotate(Vector3.left, yRot);
+        yRot = Mathf.Clamp(yRot, -90, 90);
+
+        transform.rotation = Quaternion.Euler(0, xRot, 0);
+        Camera.main.transform.rotation = Quaternion.Euler(-yRot, xRot, 0);
     }
 }
