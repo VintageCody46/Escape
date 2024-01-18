@@ -1,3 +1,4 @@
+using JetBrains.Rider.Unity.Editor;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
 
     public float speed = 12f;
 
-    private CharacterController controller;
+    private Rigidbody rb;
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
         pi.Player.Movement.performed += OnMovement;
         pi.Player.Movement.canceled += OnMovement;
 
-        controller = GetComponent<CharacterController>();
+        rb = GetComponent<Rigidbody>();
     }
 
     private void OnMovement(InputAction.CallbackContext obj)
@@ -35,10 +36,17 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        Vector3 move = transform.right * moveX + transform.forward * moveZ;
+        if (moveX == 0 && moveZ == 0)
+        {
+            rb.velocity = Vector2.zero;
+        }
 
-        controller.Move(move * speed * Time.deltaTime);
+        else
+        {
+            Vector3 move = transform.right * moveX + transform.forward * moveZ;
+            rb.velocity += move * speed * Time.fixedDeltaTime;
+        }
     }
 }
