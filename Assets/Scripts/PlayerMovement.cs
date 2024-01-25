@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     
     private float moveX;
     private float moveZ;
+    public float decel;
 
     public float speed = 12f;
 
@@ -40,13 +41,36 @@ public class PlayerMovement : MonoBehaviour
     {
         if (moveX == 0 && moveZ == 0)
         {
-            rb.velocity = Vector2.zero;
+            if (Mathf.Abs(rb.velocity.x) > decel)
+            {
+                Vector3 move = transform.right * decel;
+                rb.velocity -= move * speed * Time.fixedDeltaTime;
+                Debug.Log("Deceleration after done inputting sideways " + rb.velocity);
+            }
+            else
+            {
+                rb.velocity = new Vector3(0, rb.velocity.y, rb.velocity.z);
+                Debug.Log("Should be stopped " + rb.velocity);
+            }
+
+            if (Mathf.Abs(rb.velocity.z) > decel)
+            {
+                Vector3 move = transform.forward * decel;
+                rb.velocity -= move * speed * Time.fixedDeltaTime;
+                Debug.Log("Deceleration after done inputting sideways " + rb.velocity);
+            }
+            else
+            {
+                rb.velocity = new Vector3(rb.velocity.z, rb.velocity.y, 0); 
+                Debug.Log("Should be stopped " + rb.velocity);
+            }
         }
 
         else
         {
             Vector3 move = transform.right * moveX + transform.forward * moveZ;
             rb.velocity += move * speed * Time.fixedDeltaTime;
+            Debug.Log("Acceleration of the input variety " + rb.velocity);
         }
     }
 }
