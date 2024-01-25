@@ -16,8 +16,8 @@ public class KeyCollionController : MonoBehaviour
     if (col.gameObject.tag == "Player") {
 
       audioData.Play(0);
-      col.gameObject.GetComponent<JohnLemon_Controller>().IncrementKeys();
-      Destroy(gameObject, 0.5f);
+      col.gameObject.GetComponent<PlayerInventory>().IncrementKeys(gameObject);
+      Destroy(gameObject);
     }
   }
 }
