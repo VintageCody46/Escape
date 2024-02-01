@@ -7,6 +7,7 @@ public class GateController : MonoBehaviour
 
     public float speed;
     public bool _open;
+    public string gateColor;
 
     private AudioSource audioData;
 
@@ -40,11 +41,14 @@ public class GateController : MonoBehaviour
 
       if (col.gameObject.tag == "Player") {
 
-        if (col.gameObject.GetComponent<JohnLemon_Controller>().GetKeys() > 0 && !_open) {
+        if (col.gameObject.GetComponent<PlayerInventory>().GetKeys() > 0 && !_open) {
 
-          col.gameObject.GetComponent<JohnLemon_Controller>().DecrrementKeys();
-          audioData.Play(0);
-          _open = true;
+          if (col.gameObject.GetComponent<PlayerInventory>().ColorMatch(gateColor))
+          {
+              col.gameObject.GetComponent<PlayerInventory>().DecrementKeys(gateColor);
+              audioData.Play(0);
+              _open = true;
+          }      
         }
       }
     }
