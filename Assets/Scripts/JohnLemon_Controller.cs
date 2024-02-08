@@ -66,7 +66,7 @@ public class JohnLemon_Controller : MonoBehaviour
       keyText.text = "X " + _numKeys.ToString();
     }
 
-    public void DecrrementKeys() {
+    public void DecrementKeys() {
       _numKeys--;
       keyText.text = "X " + _numKeys.ToString();
     }
