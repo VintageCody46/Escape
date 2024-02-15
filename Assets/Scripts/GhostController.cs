@@ -5,15 +5,10 @@ using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
 
-public class WaypointController : MonoBehaviour
+public class GhostController : MonoBehaviour
 {
 
     NavMeshAgent navMeshAgent;
-
-    [SerializeField]
-    private GameObject player;
-
-    [SerializeField]
 
     private bool _isAlert;
     public float alertLength;
@@ -78,9 +73,8 @@ public class WaypointController : MonoBehaviour
 
     void OnAlert()
     {
-
         _isAlert = true;
-        navMeshAgent.SetDestination(player.transform.position);
+        navMeshAgent.SetDestination(ObjectManager.Instance.GetPlayer().position);
         StartCoroutine("AlertTimer");
     }
 
