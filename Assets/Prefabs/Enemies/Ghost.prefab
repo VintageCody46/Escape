@@ -572,7 +572,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   _isAlert: 0
-  alertLength: 0
+  alertLength: 20
   radius: 10
 --- !u!195 &4035874972607057432
 NavMeshAgent:
