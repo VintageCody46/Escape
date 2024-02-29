@@ -13,18 +13,20 @@ public class GhostController : MonoBehaviour
     private bool _isAlert;
     public float alertLength;
     public float radius = 10;
+    public float viewDistance;
+    public float viewAngle;
 
     // Start is called before the first frame update
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
-
-        GameController.Instance.onAlertTriggered += OnAlert;
     }
 
     // Update is called once per frame
     void Update()
     {
+        CheckView();
+        
         if (!_isAlert && navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
         {
             Vector3 point;
@@ -34,39 +36,21 @@ public class GhostController : MonoBehaviour
                 navMeshAgent.SetDestination(point);
             }
         }
-        //else if (_isAlert)
-        //{
-        //    if (navMeshAgent.remainingDistance < 1)
-        //    {
-        //        Vector3 point;
-        //        Vector3 destination = navMeshAgent.destination;
-        //        Vector3 newPos = new Vector3(destination.x + Random.Range(-5, 5), destination.y + Random.Range(-5, 5), destination.z);
-
-        //        while (!SetDestination(point))
-        //        {
-        //            newPos = new Vector3(destination.x + Random.Range(-5, 5), destination.y + Random.Range(-5, 5), destination.z);
-        //        }
-        //    }
-        //}
     }
 
 
     private bool SetRandomDestination(out Vector3 result)
     {
-        
-        Debug.Log("radius: " + radius);
         Vector3 ranPoint = transform.position + Random.insideUnitSphere * radius;
         NavMeshHit hit;
 
         if (NavMesh.SamplePosition(ranPoint, out hit, 1f, NavMesh.AllAreas))
         {
             result = hit.position;
-            Debug.Log("Going to point");
             return true;
         }
 
         result = Vector3.zero;
-        Debug.Log("I do nothing");
         return false;
     }
 
@@ -75,27 +59,31 @@ public class GhostController : MonoBehaviour
     {
         _isAlert = true;
         navMeshAgent.SetDestination(ObjectManager.Instance.GetPlayer().position);
-        StartCoroutine("AlertTimer");
     }
 
 
     void OnDestroy()
     {
-        GameController.Instance.onAlertTriggered -= OnAlert;
+        
     }
 
-
-    IEnumerator AlertTimer()
+    void CheckView()
     {
+        Vector3 origin = transform.position;
+        Vector3 direction = (ObjectManager.Instance.GetPlayer().position - origin).normalized;
+        
+        
+        if (Physics.Raycast(origin, direction, out RaycastHit hit, viewDistance)) 
+        {
+            if (hit.collider.gameObject.tag == "Player")
+            {
+                if(Vector3.Angle(transform.forward, direction) < viewAngle)
+                {
+                    navMeshAgent.SetDestination(ObjectManager.Instance.GetPlayer().position);
+                }
+            }
 
-        yield return new WaitForSeconds(alertLength);
-
-        _isAlert = false;
+            Debug.DrawLine(origin, hit.point, Color.cyan);
+        }
     }
-
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.color = Color.green;
-    //    Gizmos.DrawSphere(transform.position, radius);
-    //}
 }

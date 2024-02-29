@@ -570,10 +570,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 656e953acffa32542ae2f59b1655fffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  _isAlert: 0
   alertLength: 20
   radius: 10
+  viewDistance: 10
+  viewAngle: 60
 --- !u!195 &4035874972607057432
 NavMeshAgent:
   m_ObjectHideFlags: 0
