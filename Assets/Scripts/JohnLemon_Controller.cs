@@ -30,7 +30,6 @@ public class JohnLemon_Controller : MonoBehaviour
       rb = GetComponent<Rigidbody>();
       _isAlert = false;
       audioData = GetComponents<AudioSource>();
-      GameController.Instance.onAlertTriggered += OnAlert;
     }
 
     // Update is called once per frame
@@ -99,6 +98,6 @@ public class JohnLemon_Controller : MonoBehaviour
 
 
     void OnDestroy() {
-      GameController.Instance.onAlertTriggered -= OnAlert;
+
     }
 }

@@ -75,13 +75,4 @@ public class GameController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
       }
     }
-
-    public event Action onAlertTriggered;
-
-    public void AlertTriggered() {
-
-      if (onAlertTriggered != null) {
-        onAlertTriggered();
-      }
-    }
 }

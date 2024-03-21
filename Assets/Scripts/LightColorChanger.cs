@@ -14,7 +14,6 @@ public class LightColorChanger : MonoBehaviour
     {
         light = GetComponentInChildren<Light>();
         defaultColor = light.color;
-        GameController.Instance.onAlertTriggered += OnAlert;
     }
 
     // Update is called once per frame
@@ -44,6 +43,6 @@ public class LightColorChanger : MonoBehaviour
 
 
     void OnDestroy() {
-      GameController.Instance.onAlertTriggered -= OnAlert;
+      
     }
 }

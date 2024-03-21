@@ -40,6 +40,7 @@ public class GargoyleController : MonoBehaviour
                 if (Vector3.Angle(transform.forward, direction) < viewAngle)
                 {
                     Debug.Log("Spotted by Gargoyle at: " + Vector3.Angle(transform.forward, direction));
+                    AlertController.Instance.AlertPlayerPos(hit.point);
                 }
             }
 

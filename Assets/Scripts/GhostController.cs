@@ -10,8 +10,6 @@ public class GhostController : MonoBehaviour
 
     NavMeshAgent navMeshAgent;
 
-    private bool _isAlert;
-    public float alertLength;
     public float radius = 10;
     public float viewDistance;
     public float viewAngle;
@@ -20,6 +18,8 @@ public class GhostController : MonoBehaviour
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
+
+        AlertController.Instance.PlayerSeenEvent += OnAlert;
     }
 
     // Update is called once per frame
@@ -27,7 +27,7 @@ public class GhostController : MonoBehaviour
     {
         CheckView();
         
-        if (!_isAlert && navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
+        if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
         {
             Vector3 point;
 
@@ -55,16 +55,9 @@ public class GhostController : MonoBehaviour
     }
 
 
-    void OnAlert()
+    void OnAlert(Vector3 playerPos)
     {
-        _isAlert = true;
-        navMeshAgent.SetDestination(ObjectManager.Instance.GetPlayer().position);
-    }
-
-
-    void OnDestroy()
-    {
-        
+        navMeshAgent.SetDestination(playerPos);
     }
 
     void CheckView()
@@ -85,5 +78,10 @@ public class GhostController : MonoBehaviour
 
             Debug.DrawLine(origin, hit.point, Color.cyan);
         }
+    }
+
+    void OnDestroy()
+    {
+        AlertController.Instance.PlayerSeenEvent -= OnAlert;
     }
 }
