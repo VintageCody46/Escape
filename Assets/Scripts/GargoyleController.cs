@@ -8,6 +8,8 @@ public class GargoyleController : MonoBehaviour
     public float viewDistance;
     public float viewAngle;
 
+    private MonsterType type = MonsterType.Gargoyle;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,7 +42,7 @@ public class GargoyleController : MonoBehaviour
                 if (Vector3.Angle(transform.forward, direction) < viewAngle)
                 {
                     Debug.Log("Spotted by Gargoyle at: " + Vector3.Angle(transform.forward, direction));
-                    AlertController.Instance.AlertPlayerPos(hit.point);
+                    AlertController.Instance.AlertPlayerPos(hit.point, type, transform.position);
                 }
             }
 

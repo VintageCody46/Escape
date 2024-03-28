@@ -55,9 +55,21 @@ public class GhostController : MonoBehaviour
     }
 
 
-    void OnAlert(Vector3 playerPos)
+    void OnAlert(Vector3 playerPos, MonsterType type, Vector3 monsterPos)
     {
-        navMeshAgent.SetDestination(playerPos);
+        switch(type)
+        {
+            case MonsterType.Gargoyle:
+                navMeshAgent.SetDestination(playerPos);
+                break;
+
+            case MonsterType.Banshee:
+                if ((transform.position - monsterPos).magnitude <= 5)
+                {
+                    navMeshAgent.SetDestination(playerPos);
+                }
+                break;
+        }
     }
 
     void CheckView()

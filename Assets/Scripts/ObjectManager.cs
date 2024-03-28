@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum MonsterType
+{
+    Banshee,
+    Gargoyle,
+    Ghost
+}
+
 public class ObjectManager : MonoBehaviour
 {
     public static ObjectManager Instance;
