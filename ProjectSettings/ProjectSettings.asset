@@ -693,11 +693,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 1
   windowsGamepadBackendHint: 0
-  cloudProjectId: 
+  cloudProjectId: 1f9e1e98-3309-4911-9f80-547a0362dd7f
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
-  organizationId: 
+  projectName: Escape
+  organizationId: vintagecody46
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 1
   playerDataPath: 

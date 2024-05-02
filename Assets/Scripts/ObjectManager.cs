@@ -13,6 +13,7 @@ public class ObjectManager : MonoBehaviour
 {
     public static ObjectManager Instance;
     public GameObject player;
+    public GameObject floor;
 
     private void Awake()
     {
@@ -26,20 +27,13 @@ public class ObjectManager : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public Transform GetPlayer()
     {
         return player.transform;
+    }
+
+    public Transform GetFloor()
+    {
+        return floor.transform;
     }
 }
