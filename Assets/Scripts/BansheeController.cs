@@ -6,12 +6,19 @@ using UnityEngine.AI;
 
 public class BansheeController : MonoBehaviour
 {
-    private bool bansheeMoveTo;
-    private Vector3 destination;
-    
+    [Header("Banshee Movement")]
     public float destinationRadius;
     public float speed = 1f;
     public float radius = 8;
+    private bool bansheeMoveTo;
+    private Vector3 destination;
+
+    [Header("Banshee Scream")]
+    private bool bansheeScream;
+
+    [Header("Banshee LoS")]
+    public float viewDistance;
+    public float viewAngle;
     
     // Start is called before the first frame update
     void Start()
@@ -39,7 +46,7 @@ public class BansheeController : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, destination, speed * Time.deltaTime);
         }
 
-        
+        CheckView();
     }
 
     private void SetRandomDestination()
@@ -49,6 +56,59 @@ public class BansheeController : MonoBehaviour
         destination = ranPoint.GetRandomPoint();
     }
 
+    void CheckView()
+    {
+        Vector3 origin = transform.position;
+        Vector3 direction = (ObjectManager.Instance.GetPlayer().position - origin).normalized;
+
+
+        if (Physics.Raycast(origin, direction, out RaycastHit hit, viewDistance))
+        {
+            if (hit.collider.gameObject.tag == "Player")
+            {
+                if (Vector3.Angle(transform.forward, direction) < viewAngle)
+                {
+                    var playerPos = hit.collider.transform.position;
+                    playerPos.y = transform.position.y;
+                    transform.LookAt(playerPos);
+                    bansheeMoveTo = false;
+                    BansheeScreamStart();
+                    
+                }
+                else
+                {
+                    BansheeScreamStop();
+                } 
+            }
+            else
+            {
+                BansheeScreamStop();
+            }
+
+            Debug.DrawLine(origin, hit.point, Color.green);
+        }
+        else
+        {
+            BansheeScreamStop();
+        }
+    }
+
+    private void BansheeScreamStart()
+    {
+        bansheeScream = true;
+        Debug.Log("Screm");
+    }
+
+    private void BansheeScreamStop()
+    {
+        if (bansheeScream == true)
+        {
+            bansheeScream = false;
+            StartCoroutine(DestinationWaitTimer(0.5f));
+            Debug.Log("No screm");
+        }
+    }
+    
     private IEnumerator DestinationWaitTimer(float time)
     {
         bansheeMoveTo = false;

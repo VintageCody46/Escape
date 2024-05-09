@@ -1,64 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1030669303802774468
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6527456306048271471}
-  - component: {fileID: 3117404335154566245}
-  - component: {fileID: 6480467057850717697}
-  m_Layer: 6
-  m_Name: CaughtCollider
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6527456306048271471
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1030669303802774468}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.000000067055225, y: 2.43, z: -0.04579169}
-  m_LocalScale: {x: 0.99999964, y: 1, z: 0.99999964}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4035874974266616249}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &3117404335154566245
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1030669303802774468}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.38351044
-  m_Height: 0.835274
-  m_Direction: 1
-  m_Center: {x: -0.015188551, y: -1.865544, z: 0.32096654}
---- !u!114 &6480467057850717697
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1030669303802774468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c022d87492c3cb143be82c0554d9686c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4035874974266520961
 GameObject:
   m_ObjectHideFlags: 0
@@ -474,7 +415,6 @@ Transform:
   m_Children:
   - {fileID: 4035874974266616251}
   - {fileID: 4035874974266616225}
-  - {fileID: 6527456306048271471}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -514,6 +454,8 @@ MonoBehaviour:
   destinationRadius: 1
   speed: 3
   radius: 8
+  viewDistance: 0
+  viewAngle: 0
 --- !u!114 &2001490196
 MonoBehaviour:
   m_ObjectHideFlags: 0
