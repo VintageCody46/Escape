@@ -19,6 +19,9 @@ public class BansheeController : MonoBehaviour
     [Header("Banshee LoS")]
     public float viewDistance;
     public float viewAngle;
+
+    [Header("Monster Type")]
+    private MonsterType type = MonsterType.Banshee;
     
     // Start is called before the first frame update
     void Start()
@@ -72,7 +75,7 @@ public class BansheeController : MonoBehaviour
                     playerPos.y = transform.position.y;
                     transform.LookAt(playerPos);
                     bansheeMoveTo = false;
-                    BansheeScreamStart();
+                    BansheeScreamStart(hit.point);
                     
                 }
                 else
@@ -93,10 +96,11 @@ public class BansheeController : MonoBehaviour
         }
     }
 
-    private void BansheeScreamStart()
+    private void BansheeScreamStart(Vector3 hit)
     {
         bansheeScream = true;
-        Debug.Log("Screm");
+        AlertController.Instance.AlertPlayerPos(hit, type, transform.position);
+        Debug.Log("Screm and alert ghosts");
     }
 
     private void BansheeScreamStop()

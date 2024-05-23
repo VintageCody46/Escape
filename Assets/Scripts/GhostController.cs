@@ -64,7 +64,7 @@ public class GhostController : MonoBehaviour
                 break;
 
             case MonsterType.Banshee:
-                if ((transform.position - monsterPos).magnitude <= 5)
+                if ((transform.position - monsterPos).magnitude <= 10)
                 {
                     navMeshAgent.SetDestination(playerPos);
                 }
