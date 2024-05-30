@@ -22,13 +22,17 @@ public class BansheeController : MonoBehaviour
 
     [Header("Monster Type")]
     private MonsterType type = MonsterType.Banshee;
-    
+
+    private AudioSource sound;
+
     // Start is called before the first frame update
     void Start()
     {
         SetRandomDestination();
 
         bansheeMoveTo = true;
+
+        sound = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -101,6 +105,11 @@ public class BansheeController : MonoBehaviour
         bansheeScream = true;
         AlertController.Instance.AlertPlayerPos(hit, type, transform.position);
         Debug.Log("Screm and alert ghosts");
+
+        if (!sound.isPlaying)
+        {
+            sound.Play();
+        }
     }
 
     private void BansheeScreamStop()
@@ -110,6 +119,11 @@ public class BansheeController : MonoBehaviour
             bansheeScream = false;
             StartCoroutine(DestinationWaitTimer(0.5f));
             Debug.Log("No screm");
+
+            if (sound.isPlaying)
+            {
+                sound.Pause();
+            }
         }
     }
     
