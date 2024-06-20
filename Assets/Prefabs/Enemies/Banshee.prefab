@@ -453,10 +453,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destinationRadius: 1
-  speed: 3
+  speed: 0
   radius: 8
-  viewDistance: 0
-  viewAngle: 0
+  viewDistance: 4
+  viewAngle: 75
 --- !u!114 &2001490196
 MonoBehaviour:
   m_ObjectHideFlags: 0

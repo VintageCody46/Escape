@@ -75,4 +75,18 @@ public class GameController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
       }
     }
+
+    public void LevelTransition(string sceneName)
+    {
+       if (SceneManager.GetSceneByName(sceneName) != null)
+        {
+            SceneManager.LoadScene(sceneName);
+        }
+    }
+
+    [ContextMenu("LevelTest")]
+    public void test()
+    {
+        LevelTransition("Level2");
+    }
 }
