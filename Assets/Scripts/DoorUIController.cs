@@ -9,18 +9,22 @@ public class DoorUIController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
         doorUICanvas = GetComponentInChildren<Canvas>();
-        doorUICanvas.enabled = false;
     }
 
     public void OnTriggerEnter(Collider other)
     {
-        doorUICanvas.enabled = true;
+        if (other.gameObject.tag == "Player")
+        {
+            doorUICanvas.enabled = true;
+        }
     }
 
     public void OnTriggerExit(Collider other)
     {
-        doorUICanvas.enabled = false;
+        if (other.gameObject.tag == "Player")
+        {
+            doorUICanvas.enabled = false;
+        }
     }
 }

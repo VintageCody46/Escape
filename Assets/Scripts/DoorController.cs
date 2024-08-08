@@ -13,8 +13,8 @@ public class DoorController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        hinge = GetComponent<HingeJoint>();
-        rb = GetComponent<Rigidbody>();
+        hinge = GetComponentInChildren<HingeJoint>();
+        rb = GetComponentInChildren<Rigidbody>();
         isOpen = false;
 
         JointLimits limits = hinge.limits;
@@ -34,7 +34,7 @@ public class DoorController : MonoBehaviour
             motor.force = doorForce;
             hinge.motor = motor;
 
-            Debug.Log("Hinge:" + Mathf.Round(hinge.angle));
+            
             if (hinge.limits.max == Mathf.Round(hinge.angle))
             {
                 rb.isKinematic = true;
@@ -47,7 +47,7 @@ public class DoorController : MonoBehaviour
             motor.force = doorForce;
             hinge.motor = motor;
 
-            Debug.Log("Hinge:" + Mathf.Round(hinge.angle));
+            
             if (hinge.limits.min == Mathf.Round(hinge.angle))
             {
                 rb.isKinematic = true;
@@ -67,5 +67,27 @@ public class DoorController : MonoBehaviour
     {
         isOpen = false;
         rb.isKinematic = false;
+    }
+
+    public void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                Debug.Log("e key has been pressed.");
+
+                if(isOpen)
+                {
+                    ClosedDoor();
+                    Debug.Log("Door can be closed");
+                }
+                else
+                {
+                    OpenDoor();
+                    Debug.Log("Door can be opened");
+                }
+            }
+        }
     }
 }
