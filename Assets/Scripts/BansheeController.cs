@@ -60,7 +60,12 @@ public class BansheeController : MonoBehaviour
     {
         BansheeRanPointGen ranPoint = GetComponent<BansheeRanPointGen>();
 
-        destination = ranPoint.GetRandomPoint();
+        Vector3? nullable = ranPoint.GetRandomPoint();
+        
+        if (nullable.HasValue)
+        {
+            destination = nullable.Value;
+        }
     }
 
     void CheckView()

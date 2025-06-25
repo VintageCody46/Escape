@@ -1,30 +1,96 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class KeyPlacement : MonoBehaviour
 {
 
-    public GameObject keyPrefab;
-    public List<GameObject> KeyPlacementPoints = new List<GameObject>();
+    [SerializeField] private GameObject key;
+    [SerializeField] private Data keySpawnData;
 
-    private int numKeys;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        numKeys = 3;
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
 
-        if (KeyPlacementPoints.Count > 3) {
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        switch (scene.buildIndex)
+        {
+            case 1:
 
-          for (int i=0; i<numKeys; i++) {
+                onSpawnKey(keySpawnData.level1Placements);
+                break;
 
-            int num = Random.Range(0, KeyPlacementPoints.Count);
 
-            Instantiate(keyPrefab, KeyPlacementPoints[num].transform);
+            case 2:
 
-            KeyPlacementPoints.Remove(KeyPlacementPoints[num]);
-          }
+                onSpawnKey(keySpawnData.level2Placements);
+                break;
+
+
         }
+        
+    }
+
+    public void onSpawnKey(List<Vector3> spawnPlacements)
+    {
+        Vector3 spawnLoc = Vector3.zero;
+        int randomNum = UnityEngine.Random.Range(1, spawnPlacements.Count);
+        
+        ExitDoor eWalk = GameObject.FindObjectOfType<ExitDoor>();
+
+        eWalk.requiredKeys = randomNum;
+
+        List<int> keyPos = new List<int>(); 
+
+        for(int i = 0; i < randomNum; i++)
+        {
+            int randomKey = UnityEngine.Random.Range(0, spawnPlacements.Count);
+
+            while(keyPos.Contains(randomKey))
+            {
+                randomKey = UnityEngine.Random.Range(0, spawnPlacements.Count);
+            }
+
+            keyPos.Add(randomKey);
+
+            spawnLoc = spawnPlacements[randomKey];
+
+            Instantiate(key, spawnLoc, Quaternion.identity);
+        }
+
+        /*switch (GameController.Instance.currentLevel)
+        {
+            case "Level1":
+
+                break;
+
+            case "Level2":
+                
+                for(int i = 0; i < randomNum; i++)
+                {
+                    int randomKey = UnityEngine.Random.Range(0, spawnPlacements.Count);
+
+                    while (keyPos.Contains(randomKey))
+                    {
+                        randomKey = UnityEngine.Random.Range(0, spawnPlacements.Count);
+                    }
+
+                    keyPos.Add(randomKey);
+
+                    spawnLoc = spawnPlacements[randomKey];
+
+                    Instantiate(key, spawnLoc, Quaternion.identity);
+                }
+                break;
+
+            default:
+                spawnLoc = Vector3.zero;
+                break;
+        }*/    
     }
 }

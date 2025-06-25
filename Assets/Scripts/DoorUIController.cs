@@ -4,27 +4,26 @@ using UnityEngine;
 
 public class DoorUIController : MonoBehaviour
 {
-    private Canvas doorUICanvas;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        doorUICanvas = GetComponentInChildren<Canvas>();
-    }
+    //public Transform target;
 
     public void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
-            doorUICanvas.enabled = true;
+            PlayerUI pui = other.gameObject.GetComponent<PlayerUI>();
+            
+            pui.playerUICanvas.enabled = true;
         }
     }
 
     public void OnTriggerExit(Collider other)
     {
+        
         if (other.gameObject.tag == "Player")
         {
-            doorUICanvas.enabled = false;
+            PlayerUI pui = other.gameObject.GetComponent<PlayerUI>();
+
+            pui.playerUICanvas.enabled = false;
         }
     }
 }

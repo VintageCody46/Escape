@@ -4,23 +4,29 @@ using UnityEngine;
 
 public class BansheeRanPointGen : MonoBehaviour
 {
+    private GameObject floorReference;
 
-    public Vector3 GetRandomPoint()
+    public Vector3? GetRandomPoint()
     {
-        Transform floor = ObjectManager.Instance.GetFloor();
+        floorReference = GameObject.FindGameObjectWithTag("Floor");
 
-        Bounds bounds = floor.GetComponent<BoxCollider>().bounds;
+        if (floorReference != null)
+        {
+            Bounds bounds = floorReference.GetComponent<BoxCollider>().bounds;
 
-        float minX = bounds.min.x;
-        float maxX = bounds.max.x;
-        float minZ = bounds.min.z;
-        float maxZ = bounds.max.z;
+            float minX = bounds.min.x;
+            float maxX = bounds.max.x;
+            float minZ = bounds.min.z;
+            float maxZ = bounds.max.z;
 
-        float randX = Random.Range(minX, maxX);
-        float randZ = Random.Range(minZ, maxZ);
+            float randX = Random.Range(minX, maxX);
+            float randZ = Random.Range(minZ, maxZ);
 
-        Vector3 ranPoint = new Vector3(randX, 0, randZ);
+            Vector3 ranPoint = new Vector3(randX, transform.position.y, randZ);
         
-        return ranPoint;
+            return ranPoint;
+        }
+
+        return null;
     }
 }
